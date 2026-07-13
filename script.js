@@ -574,10 +574,10 @@ document.addEventListener("DOMContentLoaded", () => {
             offCtx.clearRect(0, 0, width, height);
 
             const isMobile = window.innerWidth < 768;
-            let fontSize = isMobile ? 42 : 72;
+            let fontSize = isMobile ? 55 : 100; // Increased size of each letter
             
             // Set font details (Space Grotesk matches our main headings)
-            offCtx.font = `700 ${fontSize}px Arial, sans-serif`;
+            offCtx.font = `700 ${fontSize}px "Comic Sans MS", cursive, sans-serif`;
             offCtx.fillStyle = "#ffffff";
             offCtx.textBaseline = "middle";
 
@@ -588,7 +588,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const textToDraw = "Mustansir Kapasi";
             while (fontSize > 16 && offCtx.measureText(textToDraw).width > width - 20) {
                 fontSize -= 2;
-                offCtx.font = `700 ${fontSize}px Arial, sans-serif`;
+                offCtx.font = `700 ${fontSize}px "Comic Sans MS", cursive, sans-serif`;
             }
 
             const textX = isMobile ? width / 2 : 0;
@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
             particles = [];
 
             // Step size matches density; grid sampling
-            const step = isMobile ? 4 : 5; // Optimized density
+            const step = isMobile ? 2 : 3; // Finer grid sampling = higher density and count of balls
             mouse.radius = isMobile ? 45 : 85;
 
             for (let y = 0; y < height; y += step) {
@@ -615,7 +615,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             destY: y,
                             x: Math.random() * width,
                             y: Math.random() * height,
-                            size: Math.random() * 1.5 + 1.1,
+                            size: Math.random() * 1.8 + 1.2, // Slightly larger balls for a fuller lettering look
                             vx: 0,
                             vy: 0,
                             ease: 0.08 + Math.random() * 0.08, // 2x faster ease-in speed
