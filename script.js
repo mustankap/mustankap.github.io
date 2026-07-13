@@ -531,14 +531,35 @@ document.addEventListener("DOMContentLoaded", () => {
         let mouse = { x: null, y: null, radius: 80 };
         let animationFrameId = null;
 
+        let isCanvasVisible = true;
+
         // Offscreen canvas for mapping pixels
         const offscreenCanvas = document.createElement("canvas");
         const offCtx = offscreenCanvas.getContext("2d", { willReadFrequently: true });
+
+        // IntersectionObserver to pause rendering when canvas is off-screen
+        const canvasObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isCanvasVisible = entry.isIntersecting;
+                if (isCanvasVisible) {
+                    if (!animationFrameId) {
+                        animate();
+                    }
+                } else {
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
+                    }
+                }
+            });
+        }, { threshold: 0.05 });
+        canvasObserver.observe(canvas);
 
         function initParticles() {
             // Cancel active frame during reinitialization
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
             }
 
             const rect = canvas.parentNode.getBoundingClientRect();
@@ -580,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
             particles = [];
 
             // Step size matches density; grid sampling
-            const step = isMobile ? 3 : 4;
+            const step = isMobile ? 4 : 5; // Optimized density
             mouse.radius = isMobile ? 45 : 85;
 
             for (let y = 0; y < height; y += step) {
@@ -599,19 +620,28 @@ document.addEventListener("DOMContentLoaded", () => {
                             isPrimary: randVal > 0.4,
                             vx: 0,
                             vy: 0,
-                            ease: 0.04 + Math.random() * 0.05,
-                            friction: 0.85 + Math.random() * 0.06
+                            ease: 0.08 + Math.random() * 0.08, // 2x faster ease-in speed
+                            friction: 0.78 + Math.random() * 0.06 // Slightly lower friction to settle faster
                         });
                     }
                 }
             }
 
-            animate();
+            // Start animation loop if visible
+            if (isCanvasVisible) {
+                animate();
+            }
         }
 
         function animate() {
+            if (!isCanvasVisible) {
+                animationFrameId = null;
+                return;
+            }
+
             ctx.clearRect(0, 0, width, height);
 
+            // Update particle positions
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
 
@@ -645,13 +675,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 p.x += p.vx;
                 p.y += p.vy;
-
-                // Draw dust particle - color is bound to active colors cycler
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.isPrimary ? activeColors.primary : activeColors.secondary;
-                ctx.fill();
             }
+
+            // Draw primary color particles in one batch
+            ctx.fillStyle = activeColors.primary;
+            ctx.beginPath();
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                if (p.isPrimary) {
+                    ctx.moveTo(p.x + p.size, p.y);
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                }
+            }
+            ctx.fill();
+
+            // Draw secondary color particles in one batch
+            ctx.fillStyle = activeColors.secondary;
+            ctx.beginPath();
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                if (!p.isPrimary) {
+                    ctx.moveTo(p.x + p.size, p.y);
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                }
+            }
+            ctx.fill();
 
             animationFrameId = requestAnimationFrame(animate);
         }
