@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustansir Kapasi | Full-Stack & AI Engineer</title>
+    <meta name="description" content="Portfolio of Mustansir Kapasi, Full-Stack & AI Engineer specializing in production RAG/LLM pipelines, distributed cloud infrastructure, and web platforms in React, Node, Python, and AWS.">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 1. Background Layers -->
+    <div class="body-grid-overlay"></div>
+    <div class="aurora-bg"></div>
+    <canvas id="starsCanvas"></canvas>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="grid-flow-overlay" id="gridFlow"></div>
+
+    <!-- 2. Floating Social Sidebar -->
+    <aside class="sidebar-social" id="socialSidebar">
+        <ul class="social-list">
+            <li>
+                <a href="https://github.com/mustankap" target="_blank" rel="noopener noreferrer" aria-label="GitHub" id="sidebar-github">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://linkedin.com/in/mustankap" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" id="sidebar-linkedin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:mustankap2@gmail.com" aria-label="Email" id="sidebar-email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-label="Resume" class="resume-trigger" id="sidebar-resume">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline></svg>
+                </a>
+            </li>
+        </ul>
+        <div class="vertical-line"></div>
+    </aside>
+
+    <!-- 3. Sticky Navigation Header -->
+    <header class="main-header" id="mainHeader">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <a href="#hero" aria-label="Home" id="logo-link">
+                    <div class="logo-box">
+                        <span>MK</span>
+                    </div>
+                </a>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="nav-link active" id="nav-item-hero">Home</a></li>
+                <li><a href="#about" class="nav-link" id="nav-item-about">About</a></li>
+                <li><a href="#skills" class="nav-link" id="nav-item-skills">Skills</a></li>
+                <li><a href="#projects" class="nav-link" id="nav-item-projects">Projects</a></li>
+                <li><a href="#experience" class="nav-link" id="nav-item-experience">Experience</a></li>
+                <li><a href="#contact" class="nav-link" id="nav-item-contact">Contact</a></li>
+            </ul>
+
+            <div class="header-controls">
+                <!-- Brand Accent Spin Cycler -->
+                <button class="ctrl-btn brand-spin-btn" id="brandCycler" title="Spin Accent Color">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    <div class="color-dot"></div>
+                </button>
+
+                <!-- Dark/Light Theme Toggle -->
+                <button class="ctrl-btn theme-toggle-btn" id="themeToggler" title="Toggle Theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-sun-icon hidden"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle Navigation Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 4. Mobile Navigation Overlay -->
+    <div class="mobile-menu-overlay" id="menuOverlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#hero" class="mobile-nav-link" id="mob-nav-hero">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link" id="mob-nav-about">About</a></li>
+            <li><a href="#skills" class="mobile-nav-link" id="mob-nav-skills">Skills</a></li>
+            <li><a href="#projects" class="mobile-nav-link" id="mob-nav-projects">Projects</a></li>
+            <li><a href="#experience" class="mobile-nav-link" id="mob-nav-experience">Experience</a></li>
+            <li><a href="#contact" class="mobile-nav-link" id="mob-nav-contact">Contact</a></li>
+            <li>
+                <a href="#" class="mobile-nav-link resume-trigger highlight-btn">Resume</a>
+            </li>
+        </ul>
+        <div class="mobile-menu-socials">
+            <a href="https://github.com/mustankap" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            <a href="https://linkedin.com/in/mustankap" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="mailto:mustankap2@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+        </div>
+    </div>
+
+    <!-- 5. Main Content Wrapper -->
+    <main class="content-wrapper">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="section hero-section">
+            <div class="container">
+                <div class="hero-grid">
+                    <!-- Left: Content details -->
+                    <div class="hero-content">
+                        <span class="hero-intro">// Hi, my name is</span>
+                        <div class="hero-title-container">
+                            <canvas id="particleCanvas"></canvas>
+                            <h1 class="hero-title sr-only">Mustansir Kapasi</h1>
+                        </div>
+                        <h2 class="hero-subtitle">I build production software & cloud systems.</h2>
+                        <p class="hero-description">
+                            I am a full-stack SDE with 2+ years of experience shipping features in production, distributed cloud infrastructure, and highly interactive web platforms using React, Node, Python, and AWS.
+                        </p>
+                        <div class="hero-ctas">
+                            <a href="#projects" class="btn btn-primary" id="hero-cta-projects">
+                                Explore My Work
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon" style="width: 1rem; height: 1rem;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12,5 19,12 12,19"></polyline></svg>
+                            </a>
+                            <a href="#contact" class="btn btn-secondary" id="hero-cta-contact">Let's Connect</a>
+                        </div>
+                    </div>
+
+                    <!-- Right: 3D Profile Card -->
+                    <div class="profile-card-wrapper">
+                        <div class="profile-card glass-card" id="profileCard">
+                            <div class="profile-img-container">
+                                <img src="profile.png" alt="Mustansir Kapasi" loading="lazy">
+                            </div>
+                            <div class="availability-badge">
+                                <span class="availability-dot"></span>
+                                Available for SDE roles
+                            </div>
+                            <h3 class="title-font text-xl mb-2">Mustansir Kapasi</h3>
+                            <p class="text-sm text-muted-foreground mb-4 font-medium">Full-Stack & AI Systems SDE</p>
+                            
+                            <div class="profile-meta-list">
+                                <div class="profile-meta-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    <span>New Jersey, USA</span>
+                                </div>
+                                <div class="profile-meta-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10v6M12 4v16M2 10l10-6 10 6-10 6-10-6z"/></svg>
+                                    <span>MS in CS, NJIT (Dec 2024)</span>
+                                </div>
+                                <div class="profile-meta-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    <span>2+ Years Experience</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section scroll-reveal">
+            <div class="container">
+                <h2 class="section-title text-brand-gradient" data-scramble="About Me">About Me</h2>
+                <div class="title-line"></div>
+                <p class="section-comment">// Get to know me, my background, and academic path</p>
+
+                <div class="about-grid">
+                    <div class="about-statement">
+                        <h3>Hi, I'm Mustansir. I build reliable, intelligent, and scalable software solutions.</h3>
+                        <p class="accent-paragraph mb-4">
+                            My passion lies at the intersection of AI application engineering, scalable distributed backends, and responsive user experiences.
+                        </p>
+                        <p class="text-muted-foreground">
+                            With a Master's degree in Computer Science from the New Jersey Institute of Technology (NJIT), I've honed my skills in designing end-to-end solutions. From architecting distributed AWS cluster pipelines that handle high-throughput embedding refreshes, to writing clean React component libraries adopted across corporate engineering teams, I thrive on solving complex technical challenges.
+                        </p>
+                    </div>
+
+                    <div class="about-details">
+                        <p>
+                            Whether shipping voice cloning integrations, designing secure subscription billing engines with Stripe, or implementing pgvector vector databases for production RAG pipelines, I focus on performance, scalability, and seamless user experiences.
+                        </p>
+                        
+                        <div class="education-summary">
+                            <h4>Education</h4>
+                            <div class="edu-item">
+                                <span class="edu-degree">M.S. in Computer Science</span>
+                                <span class="edu-school">New Jersey Institute of Technology</span>
+                                <span class="edu-meta">GPA: 3.75/4.0 | Graduated Dec 2024</span>
+                            </div>
+                            <div class="edu-item">
+                                <span class="edu-degree">B.Tech in Information Technology</span>
+                                <span class="edu-school">University of Mumbai</span>
+                                <span class="edu-meta">GPA: 3.9/4.0 | Graduated May 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="section scroll-reveal">
+            <div class="container">
+                <h2 class="section-title text-brand-gradient" data-scramble="Skills & Toolkit">Skills & Toolkit</h2>
+                <div class="title-line"></div>
+                <p class="section-comment">// These are the technologies I've shipped production code with</p>
+
+                <!-- Filter Controls -->
+                <div class="skills-filter-container" id="skillsFilters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ai">AI & ML</button>
+                    <button class="filter-btn" data-filter="backend">Backend</button>
+                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="devops">Cloud & DevOps</button>
+                    <button class="filter-btn" data-filter="langdb">Languages & DBs</button>
+                </div>
+
+                <!-- Skills Cards Grid -->
+                <div class="skills-grid-wrapper" id="skillsGrid">
+                    <!-- AI: OpenAI -->
+                    <div class="skill-card-item glass-card" data-category="ai" title="OpenAI API & GPT Integrations">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7M4.9 4.9l5 5M14.1 14.1l5 5M19.1 4.9l-5 5M9.9 14.1l-5 5"/></svg>
+                        </div>
+                        <span class="skill-card-name">OpenAI API</span>
+                    </div>
+                    <!-- AI: LangChain -->
+                    <div class="skill-card-item glass-card" data-category="ai" title="LangChain Framework">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                        </div>
+                        <span class="skill-card-name">LangChain</span>
+                    </div>
+                    <!-- AI: RAG -->
+                    <div class="skill-card-item glass-card" data-category="ai" title="Vector Database Retrieval Augmented Generation">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        </div>
+                        <span class="skill-card-name">pgvector RAG</span>
+                    </div>
+                    <!-- AI: TensorFlow -->
+                    <div class="skill-card-item glass-card" data-category="ai" title="TensorFlow Deep Learning">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <span class="skill-card-name">TensorFlow</span>
+                    </div>
+                    <!-- AI: SageMaker -->
+                    <div class="skill-card-item glass-card" data-category="ai" title="AWS SageMaker Model Hosting">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        </div>
+                        <span class="skill-card-name">SageMaker</span>
+                    </div>
+
+                    <!-- Backend: Node.js -->
+                    <div class="skill-card-item glass-card" data-category="backend" title="Node.js Javascript Runtime">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/><path d="M12 22V12"/></svg>
+                        </div>
+                        <span class="skill-card-name">Node.js</span>
+                    </div>
+                    <!-- Backend: Express -->
+                    <div class="skill-card-item glass-card" data-category="backend" title="Express.js Minimal Framework">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M9 9h6v6H9z"/></svg>
+                        </div>
+                        <span class="skill-card-name">Express.js</span>
+                    </div>
+                    <!-- Backend: Spring Boot -->
+                    <div class="skill-card-item glass-card" data-category="backend" title="Spring Boot (Java)">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15c0 3 3 4 6 4s6-1 6-4"/><path d="M4 9c0 2 2 3 5 3.5"/><path d="M20 9c0 1.5-1 2.5-3 3"/><path d="M9 2c0 2 2 3 2 5"/></svg>
+                        </div>
+                        <span class="skill-card-name">Spring Boot</span>
+                    </div>
+                    <!-- Backend: FastAPI -->
+                    <div class="skill-card-item glass-card" data-category="backend" title="FastAPI (Python)">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <span class="skill-card-name">FastAPI</span>
+                    </div>
+                    <!-- Backend: Redis -->
+                    <div class="skill-card-item glass-card" data-category="backend" title="Redis Cache & In-Memory Store">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="6" rx="1"/><rect x="3" y="15" width="18" height="6" rx="1"/><path d="M4 9h16M4 12h16"/></svg>
+                        </div>
+                        <span class="skill-card-name">Redis</span>
+                    </div>
+
+                    <!-- Frontend: React.js -->
+                    <div class="skill-card-item glass-card" data-category="frontend" title="React.js UI Library">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12a15.3 15.3 0 0 1 10-4 15.3 15.3 0 0 1 10 4 15.3 15.3 0 0 1-10 4 15.3 15.3 0 0 1-10-4z"/></svg>
+                        </div>
+                        <span class="skill-card-name">React.js</span>
+                    </div>
+                    <!-- Frontend: Next.js -->
+                    <div class="skill-card-item glass-card" data-category="frontend" title="Next.js SSR Framework">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 16V8l8 8V8"/></svg>
+                        </div>
+                        <span class="skill-card-name">Next.js</span>
+                    </div>
+                    <!-- Frontend: Tailwind -->
+                    <div class="skill-card-item glass-card" data-category="frontend" title="Tailwind CSS Utility-first Styling">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <span class="skill-card-name">Tailwind CSS</span>
+                    </div>
+                    <!-- Frontend: Redux -->
+                    <div class="skill-card-item glass-card" data-category="frontend" title="Redux State Management">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v12M6 12h12"/></svg>
+                        </div>
+                        <span class="skill-card-name">Redux</span>
+                    </div>
+                    <!-- Frontend: WCAG -->
+                    <div class="skill-card-item glass-card" data-category="frontend" title="Web Accessibility Guidelines">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M8 12h8M12 8v8M10 20h4"/></svg>
+                        </div>
+                        <span class="skill-card-name">WCAG 2.1</span>
+                    </div>
+
+                    <!-- DevOps: AWS -->
+                    <div class="skill-card-item glass-card" data-category="devops" title="Amazon Web Services">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18a6 6 0 0 1 12 0"/><path d="M18 18l-3-3m3 3h-6"/></svg>
+                        </div>
+                        <span class="skill-card-name">AWS Cloud</span>
+                    </div>
+                    <!-- DevOps: Docker -->
+                    <div class="skill-card-item glass-card" data-category="devops" title="Docker Containerization">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="10" width="4" height="4"/><rect x="8" y="10" width="4" height="4"/><rect x="14" y="10" width="4" height="4"/><rect x="8" y="4" width="4" height="4"/><path d="M2 18h20v2H2z"/></svg>
+                        </div>
+                        <span class="skill-card-name">Docker</span>
+                    </div>
+                    <!-- DevOps: Kubernetes -->
+                    <div class="skill-card-item glass-card" data-category="devops" title="Kubernetes Container Orchestration">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v8l-8 4-8-4V6l8-4z"/><path d="M12 2v16"/><path d="M4 6l16 8"/><path d="M20 6L4 14"/></svg>
+                        </div>
+                        <span class="skill-card-name">Kubernetes</span>
+                    </div>
+                    <!-- DevOps: CI/CD Actions -->
+                    <div class="skill-card-item glass-card" data-category="devops" title="GitHub Actions CI/CD Pipelines">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <span class="skill-card-name">CI/CD Actions</span>
+                    </div>
+
+                    <!-- Languages/DBs: PostgreSQL -->
+                    <div class="skill-card-item glass-card" data-category="langdb" title="PostgreSQL Database">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <span class="skill-card-name">PostgreSQL</span>
+                    </div>
+                    <!-- Languages/DBs: MongoDB -->
+                    <div class="skill-card-item glass-card" data-category="langdb" title="MongoDB Database">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C9 7 9 14 12 22c3-8 3-15 0-20z"/></svg>
+                        </div>
+                        <span class="skill-card-name">MongoDB</span>
+                    </div>
+                    <!-- Languages/DBs: TypeScript -->
+                    <div class="skill-card-item glass-card" data-category="langdb" title="TypeScript Language">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M14 18h3m-1.5-6v6"/></svg>
+                        </div>
+                        <span class="skill-card-name">TypeScript</span>
+                    </div>
+                    <!-- Languages/DBs: Python -->
+                    <div class="skill-card-item glass-card" data-category="langdb" title="Python Language">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2H9a4 4 0 0 0-4 4v3a4 4 0 0 0 4 4h3v2a2 2 0 0 1-2 2H7a4 4 0 0 0-4 4v3a2 2 0 0 0 2 2h3a4 4 0 0 0 4-4v-3a4 4 0 0 0-4-4H9V8a2 2 0 0 1 2-2h3a4 4 0 0 0 4-4V2z"/></svg>
+                        </div>
+                        <span class="skill-card-name">Python</span>
+                    </div>
+                    <!-- Languages/DBs: Java -->
+                    <div class="skill-card-item glass-card" data-category="langdb" title="Java Language">
+                        <div class="skill-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v8H2z"/><path d="M6 2v6M14 2v6"/></svg>
+                        </div>
+                        <span class="skill-card-name">Java</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="section scroll-reveal">
+            <div class="container">
+                <h2 class="section-title text-brand-gradient" data-scramble="Featured Projects">Featured Projects</h2>
+                <div class="title-line"></div>
+                <p class="section-comment">// Interactive applications built from inception to deployment</p>
+
+                <div class="projects-grid-wrapper">
+                    <!-- Project 1: Staccato -->
+                    <div class="project-card glass-card" id="projectCard1">
+                        <div class="project-card-container">
+                            <div class="proj-header">
+                                <div class="proj-icon-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                </div>
+                                <div class="proj-links-box">
+                                    <a href="https://github.com/mustankap" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                </div>
+                            </div>
+                            <h3 class="proj-title">Project Staccato — Speech Emotion AI</h3>
+                            <p class="proj-desc">
+                                Researched, trained, and optimized a deep learning CNN-Transformer ensemble achieving 90% accuracy across 8 speech emotion classes. Designed a robust FastAPI gateway serving sub-100ms latency inferences.
+                            </p>
+                            <ul class="proj-bullets">
+                                <li>Deployed model on AWS SageMaker with 65% faster inference utilizing post-training quantization.</li>
+                                <li>Engineered FastAPI REST endpoints serving real-time requests with sub-100ms P99 latencies.</li>
+                                <li>Awarded a $1,000 research and startup grant at the CIIA Startup Conference.</li>
+                            </ul>
+                            <div class="proj-tech-row">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">TensorFlow</span>
+                                <span class="tech-tag">SageMaker</span>
+                                <span class="tech-tag">FastAPI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: PenPal App -->
+                    <div class="project-card glass-card" id="projectCard2">
+                        <div class="project-card-container">
+                            <div class="proj-header">
+                                <div class="proj-icon-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                </div>
+                                <div class="proj-links-box">
+                                    <a href="https://github.com/mustankap" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                </div>
+                            </div>
+                            <h3 class="proj-title">PenPal App — Murphy Foundation</h3>
+                            <p class="proj-desc">
+                                An open-source global communication app connecting children across multiple borders. Designed real-time messaging pipelines, secure moderation workflows, and persistent draft saving.
+                            </p>
+                            <ul class="proj-bullets">
+                                <li>Led 10+ core pull requests from peer review to production deployment in the main codebase.</li>
+                                <li>Implemented real-time bidirectional chat with draft saving, sent/seen receipts, and moderation layers.</li>
+                                <li>Supports real-time chat translations and communication channels for 200+ children in 15+ countries.</li>
+                            </ul>
+                            <div class="proj-tech-row">
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">WebSockets</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Publications & Patents -->
+                <div class="publication-card-container">
+                    <div class="pub-badge">Publication</div>
+                    <div class="pub-details">
+                        <h3>“An Algorithmic Approach to Audio Processing and Emotion Mapping”</h3>
+                        <p class="pub-citation">M. Kapasi, <strong>IEEE ICAST 2022</strong>. Funded via $1,000 CIIA Research & Startup Grant.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="section scroll-reveal">
+            <div class="container">
+                <h2 class="section-title text-brand-gradient" data-scramble="Work Experience">Work Experience</h2>
+                <div class="title-line"></div>
+                <p class="section-comment">// Building systems that power government portals, banking products, and voice AI campaigns</p>
+
+                <div class="experience-timeline">
+                    <!-- Vertical Line -->
+                    <div class="timeline-line"></div>
+
+                    <!-- Timeline Item 1 -->
+                    <div class="exp-timeline-item">
+                        <div class="exp-timeline-dot">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <div class="exp-card-wrapper">
+                            <div class="exp-card glass-card" id="expCard1">
+                                <div class="exp-card-header">
+                                    <span class="exp-duration">Jan 2026 – Present</span>
+                                    <h3 class="exp-title">Software Developer</h3>
+                                    <h4 class="exp-company">Blood & Treasure LLC</h4>
+                                    <span class="exp-location-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Remote / New York, US
+                                    </span>
+                                </div>
+                                <p class="exp-intro">
+                                    Sole full-stack developer owning the end-to-end design, database schema, and deployment architecture of <strong>repd.us</strong>, a civic AI RAG platform serving municipalities.
+                                </p>
+                                <ul class="exp-bullets">
+                                    <li><strong>Civic AI Platform:</strong> Deployed to 108+ U.S. government offices, orchestrating the React frontend, Node REST API, PostgreSQL pgvector database, and OpenAI GPT-4o RAG pipeline.</li>
+                                    <li><strong>Admin Visualization:</strong> Designed and shipped a real-time admin dashboard, reducing client management overhead by 40%.</li>
+                                    <li><strong>AWS Cluster Architecture:</strong> Built a 3-node AWS EC2 distributed cluster for parallel document ingestion, keeping P95 search latency under 200ms.</li>
+                                    <li><strong>Telemetry Widget:</strong> Shipped a zero-dependency embeddable chat widget with AWS CloudWatch custom metrics.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="exp-timeline-item">
+                        <div class="exp-timeline-dot">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                        </div>
+                        <div class="exp-card-wrapper">
+                            <div class="exp-card glass-card" id="expCard2">
+                                <div class="exp-card-header">
+                                    <span class="exp-duration">Mar 2025 – Oct 2025</span>
+                                    <h3 class="exp-title">Software Developer</h3>
+                                    <h4 class="exp-company">Gabriel AI</h4>
+                                    <span class="exp-location-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Remote / US
+                                    </span>
+                                </div>
+                                <p class="exp-intro">
+                                    Lead end-to-end engineer on voice generation integrations and client upgrade pipelines.
+                                </p>
+                                <ul class="exp-bullets">
+                                    <li><strong>Voice Campaign Flow:</strong> Architected the voice campaign generation flow used by 300+ clients, managing background ElevenLabs voice cloning jobs through a resilient Node.js queue that reduced turnarounds by 40%.</li>
+                                    <li><strong>Monetization Engine:</strong> Designed and deployed the entire Stripe subscription infrastructure, supporting 100+ paid upgrades in the first 6 months.</li>
+                                    <li><strong>Performance Optimization:</strong> Resolved 50+ Next.js React hydration bugs, raising Lighthouse score from 58 to 75.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="exp-timeline-item">
+                        <div class="exp-timeline-dot">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <div class="exp-card-wrapper">
+                            <div class="exp-card glass-card" id="expCard3">
+                                <div class="exp-card-header">
+                                    <span class="exp-duration">Jun 2024 – Aug 2024</span>
+                                    <h3 class="exp-title">Software Developer (Intern)</h3>
+                                    <h4 class="exp-company">Neosoft Pvt. Ltd.</h4>
+                                    <span class="exp-location-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Mumbai, India
+                                    </span>
+                                </div>
+                                <p class="exp-intro">
+                                    Developed secure cloud microservices handling transactional customer banking data.
+                                </p>
+                                <ul class="exp-bullets">
+                                    <li><strong>Banking Microservices:</strong> Built authorization and profile microservices in Node.js for Kotak Mahindra Bank, serving 10,000+ daily active users securely.</li>
+                                    <li><strong>Database Performance:</strong> Dropped database response latency from 850ms to 510ms by designing and tuning MongoDB compound index structures.</li>
+                                    <li><strong>Fargate Container Migration:</strong> Dockerized 3 legacy services and migrated them to AWS Fargate, reducing application deploy times by 65%.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 4 -->
+                    <div class="exp-timeline-item">
+                        <div class="exp-timeline-dot">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        <div class="exp-card-wrapper">
+                            <div class="exp-card glass-card" id="expCard4">
+                                <div class="exp-card-header">
+                                    <span class="exp-duration">Oct 2022 – Sep 2023</span>
+                                    <h3 class="exp-title">Software Engineer</h3>
+                                    <h4 class="exp-company">Infosys (T-Mobile, Hitachi)</h4>
+                                    <span class="exp-location-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Pune, India
+                                    </span>
+                                </div>
+                                <p class="exp-intro">
+                                    Maintained cloud microservices and created shareable component ecosystems for enterprise platforms.
+                                </p>
+                                <ul class="exp-bullets">
+                                    <li><strong>Component Library:</strong> Created a highly optimized React.js component library for T-Mobile's internal web portal, adopted across 3 development teams.</li>
+                                    <li><strong>Deployment Automation:</strong> Wrote GitHub Actions CI/CD workflows targeting AWS EKS Kubernetes clusters.</li>
+                                    <li><strong>Latency Tuning:</strong> Configured Spring Boot worker thread pools to drop P95 server latency from 480ms to 360ms under maximum load.</li>
+                                    <li><strong>B2B Sales Tooling:</strong> Built a web product-configuration interface, replacing slow spreadsheet tasks for 15+ sales representatives.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section scroll-reveal">
+            <div class="container">
+                <h2 class="section-title text-brand-gradient" data-scramble="Get In Touch">Get In Touch</h2>
+                <div class="title-line"></div>
+                <p class="section-comment">// Let's discuss a project, job opening, or just grab a virtual coffee</p>
+
+                <div class="contact-grid">
+                    <!-- Left: Details -->
+                    <div class="contact-info">
+                        <p>
+                            I'm currently seeking SDE opportunities and love collaborating on complex web applications, RAG pipelines, or cloud migration tasks. Feel free to drop a line!
+                        </p>
+                        <div class="contact-details-list">
+                            <div class="contact-detail-item">
+                                <span class="label">Email</span>
+                                <a href="mailto:mustankap2@gmail.com" class="value link-hover">mustankap2@gmail.com</a>
+                            </div>
+                            <div class="contact-detail-item">
+                                <span class="label">Phone</span>
+                                <span class="value">201-726-7585</span>
+                            </div>
+                            <div class="contact-detail-item">
+                                <span class="label">Location</span>
+                                <span class="value">New Jersey, USA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="contact-form glass-card">
+                        <form id="contactForm" action="https://formspree.io/f/placeholder" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="form-name">Name</label>
+                                    <input type="text" id="form-name" name="name" required placeholder="Jane Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-email">Email</label>
+                                    <input type="email" id="form-email" name="email" required placeholder="jane@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-subject">Subject</label>
+                                <input type="text" id="form-subject" name="subject" required placeholder="Project Opportunity">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-message">Message</label>
+                                <textarea id="form-message" name="message" rows="5" required placeholder="Hi Mustansir, I'd like to collaborate..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit" id="btnSubmit">
+                                <span>Send Message</span>
+                                <svg class="spinner-icon hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width: 1.15rem; height: 1.15rem;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25" stroke="currentColor"/><path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor"/></svg>
+                            </button>
+                            <div class="form-feedback hide" id="formFeedback"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 6. Floating Coffee CTA -->
+    <a href="mailto:mustankap2@gmail.com" class="bmc-float" id="bmcFloat" aria-label="Mail Mustansir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v8H2z"/><path d="M6 2v6M14 2v6"/></svg>
+        <span class="bmc-tooltip">Drop me an email!</span>
+    </a>
+
+    <!-- 7. Footer -->
+    <footer class="main-footer">
+        <p>© 2026 Mustansir Kapasi. All rights reserved.</p>
+        <p class="footer-meta">Built with Vanilla HTML, CSS, and JS. Responsive Design.</p>
+    </footer>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
