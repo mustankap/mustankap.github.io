@@ -487,11 +487,11 @@ document.addEventListener("DOMContentLoaded", () => {
             btnSubmit.disabled = false;
             spinner.classList.add("hide");
             btnText.textContent = "Send Message";
-            if (data.success === "true") {
-                showFeedback("Thank you! Your message has been sent successfully. Mustansir will get back to you soon.", "success");
+            if (data.success === "true" || data.success === true) {
+                showFeedback(data.message || "Thank you! Your message has been sent successfully. Mustansir will get back to you soon.", "success");
                 contactForm.reset();
             } else {
-                showFeedback("Something went wrong. Please try again.", "error");
+                showFeedback(data.message || "Something went wrong. Please try again.", "error");
             }
         })
         .catch(error => {
