@@ -345,45 +345,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     titleElements.forEach(el => titleObserver.observe(el));
 
-    // ==========================================================================
-    // DYNAMIC SKILLS & FILTER GENERATION
-    // ==========================================================================
     const skillsFiltersContainer = document.getElementById("skillsFilters");
     const skillsGridContainer = document.getElementById("skillsGrid");
 
+    function renderSkills(data) {
+        // Render filters
+        skillsFiltersContainer.innerHTML = data.filters.map((filter, index) => {
+            const activeClass = index === 0 ? "active" : "";
+            return `<button class="filter-btn ${activeClass}" data-filter="${filter.id}">${filter.label}</button>`;
+        }).join("");
+
+        // Render skills
+        skillsGridContainer.innerHTML = data.skills.map(skill => {
+            const isSvgString = skill.icon.trim().startsWith("<svg");
+            const invertClass = skill.invertInDark ? "invert-dark" : "";
+            const iconContent = isSvgString 
+                ? skill.icon 
+                : `<img src="${skill.icon}" alt="${skill.name}" class="tech-logo ${invertClass}" />`;
+            return `
+            <div class="skill-card-item glass-card" data-category="${skill.category}" title="${skill.title}">
+                <div class="skill-card-icon">
+                    ${iconContent}
+                </div>
+                <span class="skill-card-name">${skill.name}</span>
+            </div>
+            `;
+        }).join("");
+
+        // Initialize filter logic and 3D tilt effects
+        initializeSkillsFilter();
+    }
+
     if (skillsFiltersContainer && skillsGridContainer) {
-        fetch("skills.json?t=" + new Date().getTime())
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Render filters
-                skillsFiltersContainer.innerHTML = data.filters.map((filter, index) => {
-                    const activeClass = index === 0 ? "active" : "";
-                    return `<button class="filter-btn ${activeClass}" data-filter="${filter.id}">${filter.label}</button>`;
-                }).join("");
-
-                // Render skills
-                skillsGridContainer.innerHTML = data.skills.map(skill => {
-                    return `
-                    <div class="skill-card-item glass-card" data-category="${skill.category}" title="${skill.title}">
-                        <div class="skill-card-icon">
-                            ${skill.icon}
-                        </div>
-                        <span class="skill-card-name">${skill.name}</span>
-                    </div>
-                    `;
-                }).join("");
-
-                // Initialize filter logic and 3D tilt effects
-                initializeSkillsFilter();
-            })
-            .catch(error => {
-                console.error("Error loading skills:", error);
-            });
+        // Use preloaded SKILLS_DATA from skills.js if available to prevent local file:// CORS blocks
+        if (typeof SKILLS_DATA !== "undefined") {
+            renderSkills(SKILLS_DATA);
+        } else {
+            fetch("skills.json?t=" + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderSkills(data);
+                })
+                .catch(error => {
+                    console.error("Error loading skills:", error);
+                });
+        }
     }
 
     function initializeSkillsFilter() {
@@ -392,6 +403,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Apply 3D tilt to skill cards
         skillCards.forEach(applyTiltEffect);
+
+        // Initialize Motion hover animations if available
+        if (window.initializeSkillsHoverAnimations) {
+            window.initializeSkillsHoverAnimations();
+        }
 
         filterButtons.forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1098,6 +1114,172 @@ document.addEventListener("DOMContentLoaded", () => {
             sResizeTimer = setTimeout(() => {
                 initStarsCanvas();
             }, 250);
+        });
+    }
+
+    // ==========================================================================
+    // MOTION.DEV (MOTION ONE) ANIMATION SYSTEM INTEGRATION
+    // ==========================================================================
+    document.documentElement.classList.add("js-active");
+
+    if (window.Motion) {
+        const { animate, inView, scroll, stagger } = window.Motion;
+
+        // 1. Scroll-Linked Progress Bar Indicator
+        const progressEl = document.getElementById("scrollProgress");
+        if (progressEl) {
+            scroll(animate(progressEl, { scaleX: [0, 1] }));
+        }
+
+        // Helper: Check if screen is desktop/PC (>= 768px)
+        const isDesktop = () => window.innerWidth >= 768;
+
+        // 2. Scroll-Triggered Reveal Entrance Animations (Spring Physics)
+        inView(".scroll-reveal", ({ target }) => {
+            // Check if this element is a direct section containing stagger-ready children
+            // If it is, let's delegate container entries to stagger below.
+            const isStaggerContainer = 
+                target.id === "experience" || 
+                target.id === "projects" || 
+                target.id === "skills";
+
+            if (isStaggerContainer) {
+                // Let the stagger observers animate them below, but still fade in the section container itself
+                animate(
+                    target,
+                    { opacity: [0, 1], y: [15, 0] },
+                    { duration: 0.7, ease: "easeOut" }
+                );
+                return;
+            }
+
+            animate(
+                target,
+                { opacity: [0, 1], y: [30, 0] },
+                {
+                    duration: 0.8,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    mass: 1
+                }
+            );
+        });
+
+        // 3. Staggered Entries for Professional Timelines and Cards
+        // Experience Timeline Stagger
+        inView(".experience-timeline", ({ target }) => {
+            const items = target.querySelectorAll(".exp-timeline-item");
+            items.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = "translateY(35px)";
+            });
+            animate(
+                items,
+                { opacity: [0, 1], y: [35, 0] },
+                {
+                    delay: stagger(0.12),
+                    duration: 0.8,
+                    type: "spring",
+                    stiffness: 90,
+                    damping: 14
+                }
+            );
+        });
+
+        // Projects Cards Stagger
+        inView(".projects-grid-wrapper", ({ target }) => {
+            const cards = target.querySelectorAll(".project-card");
+            cards.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = "translateY(35px)";
+            });
+            animate(
+                cards,
+                { opacity: [0, 1], y: [35, 0] },
+                {
+                    delay: stagger(0.15),
+                    duration: 0.8,
+                    type: "spring",
+                    stiffness: 90,
+                    damping: 14
+                }
+            );
+        });
+
+        // Skill Badges Stagger
+        inView(".skills-grid-wrapper", ({ target }) => {
+            const cards = target.querySelectorAll(".skill-card-item");
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = "scale(0.85)";
+            });
+            animate(
+                cards,
+                { opacity: [0, 1], scale: [0.85, 1] },
+                {
+                    delay: stagger(0.025),
+                    duration: 0.4,
+                    ease: "easeOut"
+                }
+            );
+        });
+
+        // 4. Interactive Micro-interactions (Hover / Tap / Press) with spring physics
+        // Project Card Hover scale effect
+        document.querySelectorAll(".project-card").forEach(card => {
+            card.addEventListener("mouseenter", () => {
+                if (isDesktop()) {
+                    animate(card, { scale: 1.025 }, { type: "spring", stiffness: 300, damping: 15 });
+                }
+            });
+            card.addEventListener("mouseleave", () => {
+                if (isDesktop()) {
+                    animate(card, { scale: 1.0 }, { type: "spring", stiffness: 300, damping: 20 });
+                }
+            });
+        });
+
+        // Skill Badges Bounce hover effect
+        window.initializeSkillsHoverAnimations = () => {
+            document.querySelectorAll(".skill-card-item").forEach(card => {
+                card.addEventListener("mouseenter", () => {
+                    animate(card, { y: -6, scale: 1.03 }, { type: "spring", stiffness: 350, damping: 12 });
+                });
+                card.addEventListener("mouseleave", () => {
+                    animate(card, { y: 0, scale: 1.0 }, { type: "spring", stiffness: 350, damping: 18 });
+                });
+            });
+        };
+        window.initializeSkillsHoverAnimations();
+
+        // Floating Coffee CTA bounce and tooltip pop
+        const bmcFloat = document.getElementById("bmcFloat");
+        if (bmcFloat) {
+            bmcFloat.addEventListener("mouseenter", () => {
+                animate(bmcFloat, { scale: 1.08 }, { type: "spring", stiffness: 450, damping: 12 });
+                animate(".bmc-tooltip", { opacity: 1, y: [5, 0] }, { duration: 0.25 });
+            });
+            bmcFloat.addEventListener("mouseleave", () => {
+                animate(bmcFloat, { scale: 1.0 }, { type: "spring", stiffness: 450, damping: 18 });
+                animate(".bmc-tooltip", { opacity: 0, y: [0, 5] }, { duration: 0.2 });
+            });
+        }
+
+        // General buttons & list icons
+        document.querySelectorAll(".btn-primary, .btn-secondary, .social-list a").forEach(btn => {
+            btn.addEventListener("mouseenter", () => {
+                animate(btn, { scale: 1.06 }, { type: "spring", stiffness: 400, damping: 12 });
+            });
+            btn.addEventListener("mouseleave", () => {
+                animate(btn, { scale: 1.0 }, { type: "spring", stiffness: 400, damping: 18 });
+            });
+            btn.addEventListener("mousedown", () => {
+                animate(btn, { scale: 0.94 }, { type: "spring", stiffness: 400, damping: 8 });
+            });
+            btn.addEventListener("mouseup", () => {
+                animate(btn, { scale: 1.06 }, { type: "spring", stiffness: 400, damping: 12 });
+            });
         });
     }
 });

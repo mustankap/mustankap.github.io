@@ -248,7 +248,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 3rem 0;
   position: relative;
 }
 
@@ -1081,9 +1081,9 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 0.75rem;
   text-align: center;
-  height: 110px;
+  height: 125px;
   opacity: 1;
   transform: scale(1);
   transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -1097,7 +1097,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .skill-card-icon {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
   color: hsl(var(--primary));
   transition: transform 0.3s ease;
   display: flex;
@@ -1105,9 +1105,16 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
 }
 
-.skill-card-icon svg {
-  width: 1.65rem;
-  height: 1.65rem;
+.skill-card-icon svg,
+.skill-card-icon img {
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
+  display: block;
+}
+
+html.dark .tech-logo.invert-dark {
+  filter: invert(1) brightness(1.8);
 }
 
 .skill-card-item:hover .skill-card-icon {
@@ -1682,6 +1689,24 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
+/* Scroll progress indicator below header */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)));
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  z-index: 100;
+}
+
+/* Disable transition on reveal elements when JS is active to allow Motion.dev to animate smoothly */
+.js-active .scroll-reveal {
+  transition: none !important;
+}
+
 /* ==========================================================================
    MEDIA RESPONSIVE QUERIES
    ========================================================================== */
@@ -1693,7 +1718,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 768px) {
   .section {
-    padding: 7rem 0;
+    padding: 4rem 0;
   }
 
   .nav-links {
@@ -1741,51 +1766,26 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .exp-timeline-item {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .timeline-line {
     display: block;
+    left: 24px;
+    transform: none;
   }
 
   .exp-timeline-dot {
     display: flex;
+    left: 24px;
+    transform: translate(-50%, -50%);
   }
 
-  /* Left experience items align to the left side */
-  .exp-timeline-item:nth-child(even) .exp-card-wrapper {
-    grid-column: 1;
-    padding-right: 2.5rem;
-  }
-
-  /* Right experience items align to the right side */
+  .exp-timeline-item:nth-child(even) .exp-card-wrapper,
   .exp-timeline-item:nth-child(odd) .exp-card-wrapper {
-    grid-column: 2;
-    padding-left: 2.5rem;
-  }
-
-  /* Offset cards for layout centering */
-  .exp-timeline-item:nth-child(even) {
-    text-align: right;
-  }
-
-  .exp-timeline-item:nth-child(even) .exp-bullets {
-    align-items: flex-end;
-    text-align: right;
-  }
-
-  .exp-timeline-item:nth-child(even) .exp-bullets li {
-    padding-left: 0;
-    padding-right: 1.25rem;
-  }
-
-  .exp-timeline-item:nth-child(even) .exp-bullets li::before {
-    left: auto;
-    right: 3px;
-  }
-
-  .exp-timeline-item:nth-child(even) .exp-location-badge {
-    justify-content: flex-end;
+    grid-column: 1;
+    padding-left: 3.5rem;
+    padding-right: 0;
   }
 
   .contact-grid {
@@ -1799,3 +1799,119 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* ==========================================================================
+   PROJECT CARD IMAGES & WORK EXPERIENCE COMPANY LOGOS
+   ========================================================================== */
+
+/* Project Card Image Layout */
+.project-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid hsl(var(--border) / 0.45);
+  position: relative;
+  background-color: hsl(var(--secondary) / 0.2);
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.05);
+}
+
+/* Experience Card Company Logo Layout */
+.exp-card-header {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.exp-logo-box {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.exp-company-logo {
+  height: 100%;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+.exp-title-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Experience Card Clients Badges */
+.exp-clients-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed hsl(var(--border) / 0.4);
+}
+
+.exp-clients-label {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: hsl(var(--muted-foreground));
+}
+
+.exp-client-logos {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.exp-client-logo-box {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.exp-client-logo-box img {
+  height: 100%;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   DESKTOP LAYOUT SYMMETRY & ALIGNMENT CORRECTIONS
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1359px) {
+  .container, .nav-container {
+    padding-left: 6rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+@media (min-width: 1360px) {
+  .container, .nav-container {
+    max-width: 1200px !important;
+    margin-left: calc((100vw - 1200px) / 2 + 38px) !important;
+    margin-right: calc((100vw - 1200px) / 2 - 38px) !important;
+  }
+}
+

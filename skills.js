@@ -1,4 +1,4 @@
-{
+const SKILLS_DATA = {
   "filters": [
     { "id": "all", "label": "All" },
     { "id": "ai", "label": "AI & ML" },
@@ -156,4 +156,4 @@
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
     }
   ]
-}
+};
