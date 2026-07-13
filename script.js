@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let fontSize = isMobile ? 42 : 72;
             
             // Set font details (Space Grotesk matches our main headings)
-            offCtx.font = `700 ${fontSize}px "Nova Square", sans-serif`;
+            offCtx.font = `700 ${fontSize}px Arial, sans-serif`;
             offCtx.fillStyle = "#ffffff";
             offCtx.textBaseline = "middle";
 
@@ -588,7 +588,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const textToDraw = "Mustansir Kapasi";
             while (fontSize > 16 && offCtx.measureText(textToDraw).width > width - 20) {
                 fontSize -= 2;
-                offCtx.font = `700 ${fontSize}px "Nova Square", sans-serif`;
+                offCtx.font = `700 ${fontSize}px Arial, sans-serif`;
             }
 
             const textX = isMobile ? width / 2 : 0;
@@ -610,14 +610,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     const alpha = data[index + 3];
                     
                     if (alpha > 128) {
-                        const randVal = Math.random();
                         particles.push({
                             destX: x,
                             destY: y,
                             x: Math.random() * width,
                             y: Math.random() * height,
                             size: Math.random() * 1.5 + 1.1,
-                            isPrimary: randVal > 0.4,
                             vx: 0,
                             vy: 0,
                             ease: 0.08 + Math.random() * 0.08, // 2x faster ease-in speed
@@ -677,27 +675,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 p.y += p.vy;
             }
 
-            // Draw primary color particles in one batch
+            // Draw all particles in one batch using the darker primary theme color
             ctx.fillStyle = activeColors.primary;
             ctx.beginPath();
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
-                if (p.isPrimary) {
-                    ctx.moveTo(p.x + p.size, p.y);
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                }
-            }
-            ctx.fill();
-
-            // Draw secondary color particles in one batch
-            ctx.fillStyle = activeColors.secondary;
-            ctx.beginPath();
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-                if (!p.isPrimary) {
-                    ctx.moveTo(p.x + p.size, p.y);
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                }
+                ctx.moveTo(p.x + p.size, p.y);
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             }
             ctx.fill();
 
