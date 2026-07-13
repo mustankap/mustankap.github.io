@@ -346,43 +346,83 @@ document.addEventListener("DOMContentLoaded", () => {
     titleElements.forEach(el => titleObserver.observe(el));
 
     // ==========================================================================
-    // SKILLS GRID FILTER SYSTEM
+    // DYNAMIC SKILLS & FILTER GENERATION
     // ==========================================================================
-    const skillCards = document.querySelectorAll(".skill-card-item");
-    const filterButtons = document.querySelectorAll("#skillsFilters .filter-btn");
+    const skillsFiltersContainer = document.getElementById("skillsFilters");
+    const skillsGridContainer = document.getElementById("skillsGrid");
 
-    // Also apply 3D tilt to skill cards on demand
-    skillCards.forEach(applyTiltEffect);
-
-    filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            // Toggle active state in controls
-            filterButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            const filterValue = btn.getAttribute("data-filter");
-
-            skillCards.forEach(card => {
-                const category = card.getAttribute("data-category");
-                
-                if (filterValue === "all" || category === filterValue) {
-                    card.classList.remove("hidden");
-                    // Triggers scale-in transitions
-                    setTimeout(() => {
-                        card.style.opacity = "1";
-                        card.style.transform = "scale(1)";
-                    }, 50);
-                } else {
-                    card.style.opacity = "0";
-                    card.style.transform = "scale(0.85)";
-                    // Wait for fade transition, then hide structure
-                    setTimeout(() => {
-                        card.classList.add("hidden");
-                    }, 300);
+    if (skillsFiltersContainer && skillsGridContainer) {
+        fetch("skills.json?t=" + new Date().getTime())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
                 }
+                return response.json();
+            })
+            .then(data => {
+                // Render filters
+                skillsFiltersContainer.innerHTML = data.filters.map((filter, index) => {
+                    const activeClass = index === 0 ? "active" : "";
+                    return `<button class="filter-btn ${activeClass}" data-filter="${filter.id}">${filter.label}</button>`;
+                }).join("");
+
+                // Render skills
+                skillsGridContainer.innerHTML = data.skills.map(skill => {
+                    return `
+                    <div class="skill-card-item glass-card" data-category="${skill.category}" title="${skill.title}">
+                        <div class="skill-card-icon">
+                            ${skill.icon}
+                        </div>
+                        <span class="skill-card-name">${skill.name}</span>
+                    </div>
+                    `;
+                }).join("");
+
+                // Initialize filter logic and 3D tilt effects
+                initializeSkillsFilter();
+            })
+            .catch(error => {
+                console.error("Error loading skills:", error);
+            });
+    }
+
+    function initializeSkillsFilter() {
+        const skillCards = document.querySelectorAll(".skill-card-item");
+        const filterButtons = document.querySelectorAll("#skillsFilters .filter-btn");
+
+        // Apply 3D tilt to skill cards
+        skillCards.forEach(applyTiltEffect);
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Toggle active state in controls
+                filterButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const filterValue = btn.getAttribute("data-filter");
+
+                skillCards.forEach(card => {
+                    const category = card.getAttribute("data-category");
+                    
+                    if (filterValue === "all" || category === filterValue) {
+                        card.classList.remove("hidden");
+                        // Triggers scale-in transitions
+                        setTimeout(() => {
+                            card.style.opacity = "1";
+                            card.style.transform = "scale(1)";
+                        }, 50);
+                    } else {
+                        card.style.opacity = "0";
+                        card.style.transform = "scale(0.85)";
+                        // Wait for fade transition, then hide structure
+                        setTimeout(() => {
+                            card.classList.add("hidden");
+                        }, 300);
+                    }
+                });
             });
         });
-    });
+    }
 
     // ==========================================================================
     // SCROLL REVEAL INTERSECTIONS
@@ -429,13 +469,37 @@ document.addEventListener("DOMContentLoaded", () => {
         btnText.textContent = "Sending...";
         formFeedback.classList.add("hide");
 
-        setTimeout(() => {
+        fetch("https://formsubmit.co/ajax/1168346a632d5d218dccefc869c09110", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                _subject: subject,
+                message: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
             btnSubmit.disabled = false;
             spinner.classList.add("hide");
             btnText.textContent = "Send Message";
-            showFeedback("Thank you! Your message has been sent successfully. Mustansir will get back to you soon.", "success");
-            contactForm.reset();
-        }, 1500);
+            if (data.success === "true") {
+                showFeedback("Thank you! Your message has been sent successfully. Mustansir will get back to you soon.", "success");
+                contactForm.reset();
+            } else {
+                showFeedback("Something went wrong. Please try again.", "error");
+            }
+        })
+        .catch(error => {
+            btnSubmit.disabled = false;
+            spinner.classList.add("hide");
+            btnText.textContent = "Send Message";
+            showFeedback("Failed to send message. Please check your connection.", "error");
+        });
     });
 
     function showFeedback(text, type) {
