@@ -389,8 +389,9 @@
                 <div class="projects-grid-wrapper">
                     <!-- Project 1: Staccato -->
                     <div class="project-card glass-card" id="projectCard1">
-                        <div class="project-card-image">
-                            <img src="./src/assets/project_staccato.png" alt="Project Staccato — Speech Emotion AI Dashboard" loading="lazy">
+                        <div class="project-card-image project-gallery-two">
+                            <img src="./src/assets/staccatoimg1.png" alt="Project Staccato — Speech Emotion AI Dashboard (1)" loading="lazy">
+                            <img src="./src/assets/staccatoimg2.png" alt="Project Staccato — Speech Emotion AI Dashboard (2)" loading="lazy">
                         </div>
                         <div class="project-card-container">
                             <div class="proj-header">
@@ -401,7 +402,7 @@
                                     <a href="https://github.com/mustankap/staccato" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
                                 </div>
                             </div>
-                            <h3 class="proj-title">Project Staccato — Speech Emotion AI</h3>
+                            <h3 class="proj-title"><a href="https://staccato-emotional-ai.streamlit.app/" target="_blank" rel="noopener noreferrer">Project Staccato — Speech Emotion AI</a></h3>
                             <p class="proj-desc">
                                 Researched, trained, and optimized a deep learning CNN-Transformer ensemble achieving 90% accuracy across 8 speech emotion classes. Designed a robust FastAPI gateway serving sub-100ms latency inferences.
                             </p>
@@ -552,6 +553,16 @@
         <!-- <p class="footer-meta">Built with Vanilla HTML, CSS, and JS. Responsive Design.</p> -->
     </footer>
  
+    <!-- 8. Image Lightbox / Carousel Modal -->
+    <div class="lightbox-modal" id="imageLightbox" aria-hidden="true" role="dialog">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
+        <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="Expanded Project Image">
+        </div>
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+    </div>
+
     <!-- Application Entry Point -->
     <script type="module" src="/src/main.js"></script>
 </body>

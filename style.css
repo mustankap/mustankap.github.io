@@ -1200,6 +1200,10 @@ html.dark .tech-logo.invert-dark {
   margin-bottom: 0.75rem;
 }
 
+.proj-title a:hover {
+  color: hsl(var(--primary));
+}
+
 .proj-desc {
   font-size: 0.95rem;
   color: hsl(var(--muted-foreground));
@@ -1829,8 +1833,10 @@ html.dark .tech-logo.invert-dark {
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.project-card:hover .project-card-image img {
-  transform: scale(1.05);
+@media (hover: hover) {
+  .project-card:hover .project-card-image img {
+    transform: scale(1.05);
+  }
 }
 
 /* Experience Card Company Logo Layout */
@@ -1915,4 +1921,186 @@ html.dark .tech-logo.invert-dark {
     margin-right: calc((100vw - 1200px) / 2 - 38px) !important;
   }
 }
+
+/* Staccato Project Double Image Gallery */
+.project-gallery-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background-color: hsl(var(--border) / 0.35);
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  border-bottom: 1px solid hsl(var(--border) / 0.45);
+}
+
+.project-gallery-two img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-gallery-two img:last-child {
+  object-position: center top;
+}
+
+/* Scale both images on hover */
+@media (hover: hover) {
+  .project-card:hover .project-gallery-two img {
+    transform: scale(1.05);
+  }
+}
+
+/* ==========================================================================
+   IMAGE LIGHTBOX / MODAL CAROUSEL
+   ========================================================================== */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 85vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox-modal.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--border) / 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10002;
+}
+
+.lightbox-close:hover {
+  background-color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+  transform: scale(1.05);
+}
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10001;
+  user-select: none;
+}
+
+.lightbox-arrow:hover {
+  background-color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-prev {
+  left: 1.5rem;
+}
+
+.lightbox-next {
+  right: 1.5rem;
+}
+
+.lightbox-arrow.hidden {
+  display: none;
+}
+
+/* Cursor pointer for zoomable images */
+.project-card-image img {
+  cursor: pointer;
+}
+
+/* Responsive styles for lightbox on mobile viewports */
+@media (max-width: 767px) {
+  .lightbox-close {
+    top: 1rem;
+    right: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.5rem;
+  }
+  
+  .lightbox-arrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+  }
+  
+  .lightbox-prev {
+    left: 0.75rem;
+  }
+  
+  .lightbox-next {
+    right: 0.75rem;
+  }
+  
+  .lightbox-content {
+    max-width: 90vw;
+    max-height: 75vh;
+  }
+  
+  .lightbox-content img {
+    max-height: 75vh;
+  }
+}
+
 

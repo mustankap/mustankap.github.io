@@ -2,6 +2,7 @@
 import '../style.css';
 import { initBrandAndThemeEngine } from './brandColors.js';
 import { initInteractions } from './interactions.js';
+import { initLightbox } from './lightbox.js';
 import { initScrambleTitleAnimations } from './scramble.js';
 import { initSkills } from './skills.js';
 import { initContactForm } from './form.js';
@@ -15,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. UI Interactions (scrollspy, mobile menu, cursor glow, tilt)
     initInteractions();
+
+    // 2b. Lightbox Image Carousel
+    initLightbox();
 
     // 3. Text scramble headings
     initScrambleTitleAnimations();
