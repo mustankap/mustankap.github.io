@@ -58,7 +58,7 @@ export function initParticles() {
         let fontSize = isMobile ? 55 : 100; // Increased size of each letter
         
         // Set font details (Space Grotesk matches our main headings)
-        offCtx.font = `700 ${fontSize}px "Comic Sans MS", cursive, sans-serif`;
+        offCtx.font = `700 ${fontSize}px "Comic Sans MS", "Comic Neue", sans-serif`;
         offCtx.fillStyle = "#ffffff";
         offCtx.textBaseline = "middle";
 
@@ -69,7 +69,7 @@ export function initParticles() {
         const textToDraw = "Mustansir Kapasi";
         while (fontSize > 16 && offCtx.measureText(textToDraw).width > width - 20) {
             fontSize -= 2;
-            offCtx.font = `700 ${fontSize}px "Comic Sans MS", cursive, sans-serif`;
+            offCtx.font = `700 ${fontSize}px "Comic Sans MS", "Comic Neue", sans-serif`;
         }
 
         const textX = isMobile ? width / 2 : 0;
